@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_insurance_agent_user,insurance.agent.user,model_insurance_agent,base.group_user,1,1,1,1
-access_insurance_agent_contact_user,insurance.agent.contact.user,model_insurance_agent_contact,base.group_user,1,1,1,1
