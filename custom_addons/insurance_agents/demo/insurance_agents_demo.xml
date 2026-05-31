@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="demo_agent_carlos_mora" model="insurance.agent">
+        <field name="name">Carlos Mora</field>
+        <field name="vat">0919876543001</field>
+        <field name="birthdate">1979-08-22</field>
+        <field name="has_credential">1</field>
+        <field name="credential_number">CRED-DEMO-001</field>
+        <field name="phone">+593998887776</field>
+        <field name="email">carlos.mora.demo@example.com</field>
+        <field name="city">Guayaquil</field>
+    </record>
+
+    <record id="demo_agent_andes_agency" model="insurance.agent">
+        <field name="company_type">company</field>
+        <field name="name">Andes Risk Advisors Cia. Ltda.</field>
+        <field name="vat">1791234567001</field>
+        <field name="phone">+59324555666</field>
+        <field name="email">operaciones.demo@andesrisk.example.com</field>
+        <field name="street">Av. Amazonas N34-120</field>
+        <field name="city">Quito</field>
+    </record>
+
+    <record id="demo_agent_andes_contact_maria" model="insurance.agent.contact">
+        <field name="agent_id" ref="demo_agent_andes_agency"/>
+        <field name="name">Maria Torres</field>
+        <field name="birthdate">1991-04-18</field>
+        <field name="function">Ejecutiva comercial</field>
+        <field name="email">maria.torres.demo@andesrisk.example.com</field>
+        <field name="phone">+593997771111</field>
+    </record>
+
+    <record id="demo_agent_andes_contact_luis" model="insurance.agent.contact">
+        <field name="agent_id" ref="demo_agent_andes_agency"/>
+        <field name="name">Luis Benitez</field>
+        <field name="birthdate">1988-11-09</field>
+        <field name="function">Siniestros</field>
+        <field name="email">luis.benitez.demo@andesrisk.example.com</field>
+        <field name="phone">+593996662222</field>
+    </record>
+
+    <record id="insurance_policies.demo_term_auto_draft" model="insurance.policy.term">
+        <field name="agent_id" ref="demo_agent_carlos_mora"/>
+    </record>
+
+    <record id="insurance_policies.demo_term_auto_active" model="insurance.policy.term">
+        <field name="agent_id" ref="demo_agent_carlos_mora"/>
+    </record>
+
+    <record id="insurance_policies.demo_term_health_review" model="insurance.policy.term">
+        <field name="agent_id" ref="demo_agent_andes_agency"/>
+    </record>
+
+    <record id="insurance_policies.demo_term_liability_cancelled" model="insurance.policy.term">
+        <field name="agent_id" ref="demo_agent_andes_agency"/>
+    </record>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="demo_client_juan_perez" model="insurance.client">
+        <field name="first_name">Juan Carlos</field>
+        <field name="last_name">Perez Andrade</field>
+        <field name="id_type">cedula</field>
+        <field name="gender">male</field>
+        <field name="birthdate">1984-03-12</field>
+        <field name="occupation">Ingeniero comercial</field>
+        <field name="vat">0912345678</field>
+        <field name="phone">+593999888777</field>
+        <field name="email">juan.perez.demo@example.com</field>
+        <field name="street">Av. 9 de Octubre 1200</field>
+        <field name="city">Guayaquil</field>
+        <field name="user_id" ref="base.user_admin"/>
+    </record>
+
+    <record id="demo_client_acme_corp" model="insurance.client">
+        <field name="company_type">company</field>
+        <field name="name">ACME Corp S.A.</field>
+        <field name="id_type">ruc_juridica</field>
+        <field name="activity">Comercio mayorista</field>
+        <field name="vat">0991234567001</field>
+        <field name="phone">+59342223344</field>
+        <field name="email">seguros.demo@acmecorp.example.com</field>
+        <field name="street">Av. Francisco de Orellana 456</field>
+        <field name="city">Guayaquil</field>
+        <field name="user_id" ref="base.user_admin"/>
+    </record>
+</odoo>

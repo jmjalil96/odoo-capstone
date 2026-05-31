@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_insurance_policy_form_inherit_agents" model="ir.ui.view">
+        <field name="name">insurance.policy.form.inherit.agents</field>
+        <field name="model">insurance.policy</field>
+        <field name="inherit_id" ref="insurance_policies.view_insurance_policy_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='term_ids']/list/field[@name='business_type']" position="after">
+                <field name="agent_id" string="Agente" width="180px"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_insurance_policy_term_list_inherit_agents" model="ir.ui.view">
+        <field name="name">insurance.policy.term.list.inherit.agents</field>
+        <field name="model">insurance.policy.term</field>
+        <field name="inherit_id" ref="insurance_policies.view_insurance_policy_term_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='business_type']" position="after">
+                <field name="agent_id" string="Agente"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_insurance_policy_term_form_inherit_agents" model="ir.ui.view">
+        <field name="name">insurance.policy.term.form.inherit.agents</field>
+        <field name="model">insurance.policy.term</field>
+        <field name="inherit_id" ref="insurance_policies.view_insurance_policy_term_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='policy_id']" position="after">
+                <field name="agent_id" string="Agente" options="{'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_insurance_policy_term_search_inherit_agents" model="ir.ui.view">
+        <field name="name">insurance.policy.term.search.inherit.agents</field>
+        <field name="model">insurance.policy.term</field>
+        <field name="inherit_id" ref="insurance_policies.view_insurance_policy_term_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='policy_id']" position="after">
+                <field name="agent_id" string="Agente"/>
+            </xpath>
+            <xpath expr="//group[@name='group_by']/filter[@name='group_policy']" position="after">
+                <filter name="group_agent" string="Agente" context="{'group_by': 'agent_id'}"/>
+            </xpath>
+            <xpath expr="//filter[@name='business_new']" position="before">
+                <filter name="missing_agent" string="Sin agente" domain="[('agent_id', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

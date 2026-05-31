@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="demo_policy_auto_juan" model="insurance.policy">
+        <field name="policy_number">DEMO-AUTO-001</field>
+        <field name="client_id" ref="insurance_clients.demo_client_juan_perez"/>
+        <field name="area">general</field>
+        <field name="ramo">vehiculos</field>
+    </record>
+
+    <record id="demo_term_auto_draft" model="insurance.policy.term">
+        <field name="policy_id" ref="demo_policy_auto_juan"/>
+        <field name="business_type">new</field>
+        <field name="state">draft</field>
+        <field name="effective_date">2026-06-01</field>
+        <field name="expiration_date">2027-05-31</field>
+    </record>
+
+    <record id="demo_term_auto_active" model="insurance.policy.term">
+        <field name="policy_id" ref="demo_policy_auto_juan"/>
+        <field name="business_type">renewal</field>
+        <field name="state">active</field>
+        <field name="effective_date">2025-06-01</field>
+        <field name="expiration_date">2026-05-31</field>
+    </record>
+
+    <record id="demo_policy_health_juan" model="insurance.policy">
+        <field name="policy_number">DEMO-SALUD-001</field>
+        <field name="client_id" ref="insurance_clients.demo_client_juan_perez"/>
+        <field name="area">personas</field>
+        <field name="ramo">salud</field>
+    </record>
+
+    <record id="demo_term_health_review" model="insurance.policy.term">
+        <field name="policy_id" ref="demo_policy_health_juan"/>
+        <field name="business_type">renewal</field>
+        <field name="state">review</field>
+        <field name="effective_date">2025-01-01</field>
+        <field name="expiration_date">2025-12-31</field>
+    </record>
+
+    <record id="demo_policy_liability_acme" model="insurance.policy">
+        <field name="policy_number">DEMO-RC-001</field>
+        <field name="client_id" ref="insurance_clients.demo_client_acme_corp"/>
+        <field name="area">general</field>
+        <field name="ramo">responsabilidad_civil</field>
+    </record>
+
+    <record id="demo_term_liability_cancelled" model="insurance.policy.term">
+        <field name="policy_id" ref="demo_policy_liability_acme"/>
+        <field name="business_type">new</field>
+        <field name="state">cancelled</field>
+        <field name="closure_reason">emission_cancelled</field>
+        <field name="effective_date">2025-03-01</field>
+        <field name="expiration_date">2026-02-28</field>
+    </record>
+</odoo>

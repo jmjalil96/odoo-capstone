@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_insurance_agent_list" model="ir.ui.view">
+        <field name="name">insurance.agent.list</field>
+        <field name="model">insurance.agent</field>
+        <field name="arch" type="xml">
+            <list string="Agentes" duplicate="0">
+                <field name="name" string="Nombre / Razon social"/>
+                <field name="company_type" string="Tipo"/>
+                <field name="vat" string="RUC"/>
+                <field name="has_credential" string="Credencial"/>
+                <field name="credential_number" string="Numero de credencial"/>
+                <field name="phone" string="Celular"/>
+                <field name="email" string="Correo electronico"/>
+                <field name="city" string="Ciudad"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_insurance_agent_form" model="ir.ui.view">
+        <field name="name">insurance.agent.form</field>
+        <field name="model">insurance.agent</field>
+        <field name="arch" type="xml">
+            <form string="Agente" duplicate="0">
+                <sheet>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="is_company" invisible="1"/>
+
+                    <group>
+                        <group>
+                            <field name="company_type" string="Tipo de agente" widget="radio" options="{'horizontal': true}"/>
+                            <field name="name" string="Nombre / Razon social" required="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Credencial">
+                        <group>
+                            <field name="has_credential" string="Credencial"/>
+                            <field name="credential_number" string="Numero de credencial" required="has_credential" invisible="not has_credential"/>
+                        </group>
+                        <group>
+                            <field name="vat" string="RUC" required="1"/>
+                            <field name="birthdate" string="Fecha de nacimiento" options="{'numeric': True}"/>
+                        </group>
+                    </group>
+
+                    <group string="Contacto">
+                        <group>
+                            <field name="phone" string="Celular"/>
+                        </group>
+                        <group>
+                            <field name="email" string="Correo electronico" widget="email"/>
+                        </group>
+                    </group>
+
+                    <group string="Direccion principal">
+                        <group>
+                            <field name="street" string="Direccion"/>
+                            <field name="street2" string="Direccion 2"/>
+                            <field name="city" string="Ciudad"/>
+                        </group>
+                        <group>
+                            <field name="state_id" string="Provincia" options="{'no_open': True, 'no_quick_create': True}" context="{'country_id': country_id, 'default_country_id': country_id}"/>
+                            <field name="country_id" string="Pais" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Contactos" name="contacts">
+                            <field name="contact_ids" mode="list,form">
+                                <list editable="bottom" string="Contactos">
+                                    <field name="name" string="Nombre" width="180px"/>
+                                    <field name="birthdate" string="Nacimiento" options="{'numeric': True}" width="120px"/>
+                                    <field name="function" string="Cargo" width="160px"/>
+                                    <field name="email" string="Correo electronico" width="220px"/>
+                                    <field name="phone" string="Celular" width="130px"/>
+                                </list>
+                                <form string="Contacto">
+                                    <sheet>
+                                        <field name="partner_id" invisible="1"/>
+                                        <group>
+                                            <field name="name" string="Nombre" required="1"/>
+                                            <field name="birthdate" string="Fecha de nacimiento" options="{'numeric': True}"/>
+                                            <field name="function" string="Cargo"/>
+                                            <field name="email" string="Correo electronico" widget="email"/>
+                                            <field name="phone" string="Celular"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Auditoria" name="audit">
+                            <group>
+                                <group>
+                                    <field name="create_uid" string="Creado por" readonly="1"/>
+                                    <field name="create_date" string="Fecha de creacion" readonly="1" options="{'numeric': True}"/>
+                                </group>
+                                <group>
+                                    <field name="write_uid" string="Modificado por" readonly="1"/>
+                                    <field name="write_date" string="Fecha de modificacion" readonly="1" options="{'numeric': True}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_insurance_agent_search" model="ir.ui.view">
+        <field name="name">insurance.agent.search</field>
+        <field name="model">insurance.agent</field>
+        <field name="arch" type="xml">
+            <search string="Agentes">
+                <field name="name" string="Nombre / Razon social"/>
+                <field name="vat" string="RUC"/>
+                <field name="credential_number" string="Numero de credencial"/>
+                <field name="phone" string="Celular"/>
+                <field name="email" string="Correo electronico"/>
+                <filter name="individuals" string="Individuales" domain="[('is_company', '=', False)]"/>
+                <filter name="companies" string="Companias" domain="[('is_company', '=', True)]"/>
+                <separator/>
+                <filter name="with_credential" string="Con credencial" domain="[('has_credential', '=', True)]"/>
+                <filter name="without_credential" string="Sin credencial" domain="[('has_credential', '=', False)]"/>
+                <separator/>
+                <filter name="missing_email" string="Sin correo" domain="[('email', '=', False)]"/>
+                <filter name="missing_phone" string="Sin celular" domain="[('phone', '=', False)]"/>
+                <group name="group_by">
+                    <filter name="group_credential" string="Credencial" context="{'group_by': 'has_credential'}"/>
+                    <filter name="group_state" string="Provincia" context="{'group_by': 'state_id'}"/>
+                    <filter name="group_country" string="Pais" context="{'group_by': 'country_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_insurance_agents" model="ir.actions.act_window">
+        <field name="name">Agentes</field>
+        <field name="res_model">insurance.agent</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'list', 'view_id': ref('view_insurance_agent_list')}), (0, 0, {'view_mode': 'form', 'view_id': ref('view_insurance_agent_form')})]"/>
+        <field name="search_view_id" ref="view_insurance_agent_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{'default_company_type': 'person'}</field>
+    </record>
+
+    <menuitem id="menu_insurance_agents" name="Agentes" parent="insurance_base.menu_insurance_root" action="action_insurance_agents" sequence="15"/>
+</odoo>
